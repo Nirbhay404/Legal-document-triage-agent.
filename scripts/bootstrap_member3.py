@@ -4,6 +4,7 @@ Creates all sample documents, gold eval cases, and evidence/docs templates.
 Run from the repo root: python scripts/bootstrap_member3.py
 """
 from __future__ import annotations
+
 import json
 from pathlib import Path
 

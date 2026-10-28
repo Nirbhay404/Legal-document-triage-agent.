@@ -13,6 +13,12 @@ Reports are honest smoke metrics on COMMERCIAL contracts, not proof for consumer
 """
 from __future__ import annotations
 
+import os
+import sys
+
+# Make `legal_triage` importable when run as `python scripts/<name>.py` from the repo root.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import argparse
 import json
 import re
@@ -74,7 +80,9 @@ def evaluate(cases, contracts_dir: Path, analyze_fn, build_index_fn, runtime, li
 def summarize(rows: list[dict]) -> dict:
     ans = [r for r in rows if r["type"] == "answerable"]
     ab = [r for r in rows if r["type"] == "absent"]
-    pct = lambda a, b: round(100 * a / b, 1) if b else None
+    def pct(a, b):
+        return round(100 * a / b, 1) if b else None
+
     return {
         "cases": len(rows),
         "answerable": len(ans),

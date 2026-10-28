@@ -18,6 +18,12 @@ Pick the threshold with 0 invented answers and the fewest false abstentions.
 """
 from __future__ import annotations
 
+import os
+import sys
+
+# Make `legal_triage` importable when run as `python scripts/<name>.py` from the repo root.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import argparse
 import importlib
 import json
@@ -34,26 +40,21 @@ def _run_eval_at_threshold(threshold: float, eval_dir: Path, runtime) -> dict:
 
     # Re-import SETTINGS so the new env var takes effect
     import legal_triage.config as cfg_mod
-    import importlib
     importlib.reload(cfg_mod)
     import legal_triage.agent as agent_mod
     importlib.reload(agent_mod)
-    from legal_triage.agent import analyze
 
     gold_files = sorted(eval_dir.glob("*.json"))
     if not gold_files:
         raise FileNotFoundError(f"No gold JSON files found in {eval_dir}")
 
     total = absent_total = 0
-    invented = false_abstain = correct = 0
 
     for gold_path in gold_files:
         with gold_path.open() as fh:
             cases = json.load(fh)
         for case in cases:
             q_type = case.get("type", "answerable")
-            question = case.get("question", "")
-            expected_facts = case.get("expected_facts", [])
             # Build a tiny index from the gold document if available
             # (In a real eval, you would load the actual indexed document.)
             # This script skeleton prints instructions; the team must wire

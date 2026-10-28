@@ -16,7 +16,6 @@ from legal_triage.ingestion import IngestionError  # noqa: E402
 from legal_triage.local_runtime import LocalModelError, LocalOllama  # noqa: E402
 from legal_triage.retrieval import LocalIndex, build_index  # noqa: E402
 
-
 st.set_page_config(
     page_title="Private Legal Document Triage",
     page_icon="⚖️",
@@ -128,7 +127,7 @@ def _result_to_markdown(result: dict, title: str, question: str = "") -> str:
                 fname = src.get("filename", "document")
                 pages = src.get("all_pages", [src.get("page_number", "?")])
                 page_str = "+".join(str(p) for p in pages)
-                lines += [f"> **Source:** {fname}, page {page_str}", f"> ```", f"> {ev.get('quote', '')}", "> ```", ""]
+                lines += [f"> **Source:** {fname}, page {page_str}", "> ```", f"> {ev.get('quote', '')}", "> ```", ""]
             lq = f.get("lawyer_question", "")
             if lq:
                 lines += [f"**Question for a qualified legal professional:** {lq}", ""]

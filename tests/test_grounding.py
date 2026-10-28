@@ -1,4 +1,9 @@
-from legal_triage.grounding import normalize_quote, quote_is_verbatim, validate_findings, contains_unqualified_legal_judgment
+from legal_triage.grounding import (
+    contains_unqualified_legal_judgment,
+    normalize_quote,
+    quote_is_verbatim,
+    validate_findings,
+)
 
 
 def test_whitespace_normalization_is_stable():

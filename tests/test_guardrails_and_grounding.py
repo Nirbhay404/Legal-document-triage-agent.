@@ -12,14 +12,12 @@ Covers:
 """
 from __future__ import annotations
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import numpy as np
 import pytest
 
 from legal_triage.agent import (
-    AnalysisError,
-    _full_doc_fits_in_ctx,
     _jurisdiction_hints_for,
     analyze,
     is_definitive_legal_verdict_request,
@@ -32,7 +30,6 @@ from legal_triage.grounding import (
 )
 from legal_triage.retrieval import LocalIndex, retrieve_triage_per_topic
 from legal_triage.types import Chunk
-
 
 # ===========================================================================
 # Helpers
@@ -487,12 +484,10 @@ def test_pipeline_drops_invented_quote_wrong_source_id_and_legal_verdict_claim(m
     - findings that assert legal enforceability
     """
     import dataclasses
-    import json
 
     from legal_triage import agent as agent_module
 
     # Patch retrieve_question to return a controlled result
-    chunk = _make_chunk(GOOD_SOURCE_TEXT)
     index = _make_index([GOOD_SOURCE_TEXT])
     runtime = MagicMock()
 

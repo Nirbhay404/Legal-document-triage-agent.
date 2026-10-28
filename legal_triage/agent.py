@@ -23,7 +23,11 @@ from typing import Any
 from .config import SETTINGS
 from .grounding import validate_findings
 from .local_runtime import LocalOllama
-from .retrieval import LocalIndex, retrieve_question, retrieve_triage, retrieve_triage_per_topic
+from .retrieval import (
+    LocalIndex,
+    retrieve_question,
+    retrieve_triage_per_topic,
+)
 from .types import Chunk
 
 # ---------------------------------------------------------------------------

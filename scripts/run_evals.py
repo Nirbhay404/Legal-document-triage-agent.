@@ -22,6 +22,12 @@ The runner exits non-zero if invented_answer_rate > 0 or any ERROR case exists.
 """
 from __future__ import annotations
 
+import os
+import sys
+
+# Make `legal_triage` importable when run as `python scripts/<name>.py` from the repo root.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import argparse
 import json
 import time
@@ -34,7 +40,7 @@ load_dotenv()
 
 from legal_triage.agent import analyze  # noqa: E402
 from legal_triage.local_runtime import LocalOllama  # noqa: E402
-from legal_triage.retrieval import build_index, LocalIndex  # noqa: E402
+from legal_triage.retrieval import LocalIndex, build_index  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 GOLD_DIR = ROOT / "eval" / "gold"
@@ -160,8 +166,6 @@ def main() -> int:
         document = case.get("document", "")
         expected_facts = case.get("expected_facts", [])
         quote_must_contain = case.get("quote_must_contain", [])
-        must_abstain = case.get("must_abstain", False)
-        must_refuse_verdict = case.get("must_refuse_verdict", False)
 
         try:
             index = _build_index_cached(document, runtime, index_cache)
@@ -305,9 +309,9 @@ def main() -> int:
     if args.markdown:
         md_lines = [
             "# Evaluation Report",
-            f"",
-            f"| Field | Value |",
-            f"|-------|-------|",
+            "",
+            "| Field | Value |",
+            "|-------|-------|",
             f"| Date | {start_time} |",
             f"| Model | {runtime.chat_model} |",
             f"| Embedding | {runtime.embedding_model} |",

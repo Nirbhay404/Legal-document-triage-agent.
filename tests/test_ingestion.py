@@ -26,6 +26,7 @@ def test_empty_text_file_is_rejected():
 
 def test_selectable_text_pdf_keeps_page_number():
     from io import BytesIO
+
     from reportlab.pdfgen import canvas
 
     buffer = BytesIO()
@@ -44,6 +45,7 @@ def test_selectable_text_pdf_keeps_page_number():
 
 def test_blank_pdf_explains_ocr_limitation():
     from io import BytesIO
+
     from pypdf import PdfWriter
 
     buffer = BytesIO()

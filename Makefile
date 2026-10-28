@@ -32,13 +32,13 @@ cuad-eval: cuad-gold
 	@echo "Report written to evidence/cuad-eval.json"
 
 secret-scan:
-	@echo "Scanning for secrets (gate G5)…"
-	@git grep -rn --no-index -i \
-	  -e "api_key" -e "secret_key" -e "password" -e "token" \
-	  -e "OPENAI_API_KEY" -e "sk-" \
-	  -- ':!*.md' ':!*.txt' ':!.env.example' \
-	  && echo "⚠ Potential secrets found – review above before pushing" \
-	  || echo "✅ No obvious secrets detected"
+	@echo "Scanning tracked files for secrets (gate G5)…"
+	@if git grep -nIE -i \
+	  -e "(api[_-]?key|secret[_-]?key|password|token)[\"']?[[:space:]]*[:=][[:space:]]*[\"'][^\"'[:space:]]{8,}[\"']" \
+	  -e "sk-[A-Za-z0-9]{20,}" \
+	  -- ':!*.md' ':!*.txt' ':!.env.example' ':!tests/' ; then \
+	  echo "⚠ Potential secrets found – review above before pushing"; exit 1; \
+	else echo "✅ No obvious secrets detected"; fi
 
 versions:
 	bash scripts/collect_versions.sh

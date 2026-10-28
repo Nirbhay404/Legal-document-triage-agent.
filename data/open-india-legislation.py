@@ -1,6 +1,7 @@
 
-from huggingface_hub import HfApi, hf_hub_download
 from pathlib import Path
+
+from huggingface_hub import HfApi, hf_hub_download
 
 REPO_ID = "vaquill/open-india-law"
 OUTPUT_DIR = Path("./open-india-law-legislation")
@@ -36,5 +37,5 @@ for i, filename in enumerate(legislation_files, start=1):
         local_dir=str(OUTPUT_DIR)
     )
 
-print(f"\nDataset downloaded successfully!")
+print("\nDataset downloaded successfully!")
 print(f"Saved to: {OUTPUT_DIR.resolve()}")

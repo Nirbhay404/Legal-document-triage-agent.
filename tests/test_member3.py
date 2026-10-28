@@ -380,6 +380,7 @@ class TestIngestionRobustness:
 
     def test_docx_paragraph_ingestion(self) -> None:
         import docx as _docx
+
         from legal_triage.ingestion import ingest_files
         buffer = io.BytesIO()
         doc = _docx.Document()
@@ -398,6 +399,7 @@ class TestIngestionRobustness:
 
     def test_docx_table_text_extracted(self) -> None:
         import docx as _docx
+
         from legal_triage.ingestion import ingest_files
         buffer = io.BytesIO()
         doc = _docx.Document()
@@ -414,6 +416,7 @@ class TestIngestionRobustness:
 
     def test_empty_docx_raises_ingestion_error(self) -> None:
         import docx as _docx
+
         from legal_triage.ingestion import IngestionError, ingest_files
         buffer = io.BytesIO()
         _docx.Document().save(buffer)

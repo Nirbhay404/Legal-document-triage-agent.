@@ -1,6 +1,10 @@
 import pytest
 
-from legal_triage.config import ConfigurationError, validate_local_model_name, validate_local_ollama_url
+from legal_triage.config import (
+    ConfigurationError,
+    validate_local_model_name,
+    validate_local_ollama_url,
+)
 
 
 def test_local_loopback_urls_are_allowed():

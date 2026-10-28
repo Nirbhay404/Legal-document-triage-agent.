@@ -17,10 +17,8 @@ from legal_triage.retrieval import (
     retrieve_question,
     retrieve_triage,
     retrieve_triage_per_topic,
-    TRIAGE_TOPIC_SEARCHES,
 )
 from legal_triage.types import Chunk
-
 
 # ---------------------------------------------------------------------------
 # Fake runtime
@@ -161,7 +159,6 @@ class TestRetrieveTriage:
         index, chunks = three_chunk_index
         # Use a high top_k_per_topic so all chunks can be returned.
         results, _ = retrieve_triage_per_topic(index, fake_runtime, top_k_per_topic=10)
-        returned_texts = {r[0].text for r in results}
         # At minimum, chunks with non-zero similarity to any triage query should appear.
         assert isinstance(results, list)
 

@@ -2,6 +2,12 @@
 """Check local Ollama/model readiness without opening or uploading user documents."""
 from __future__ import annotations
 
+import os
+import sys
+
+# Make `legal_triage` importable when run as `python scripts/<name>.py` from the repo root.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from dotenv import load_dotenv
 
 load_dotenv()

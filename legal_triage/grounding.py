@@ -11,9 +11,8 @@ Member 1 additions
 from __future__ import annotations
 
 import re
+import unicodedata as _unicodedata
 from typing import Any
-
-from .types import ALLOWED_ATTENTION, ALLOWED_SUPPORT, ALLOWED_TOPICS, Finding
 
 ALLOWED_CATEGORIES = {
     "explicit_statement",
@@ -176,8 +175,6 @@ def contains_unqualified_legal_judgment(claim: str, category: str) -> bool:
 # ---------------------------------------------------------------------------
 # Quote normalisation helpers (public, used by tests and by ingestion callers)
 # ---------------------------------------------------------------------------
-
-import unicodedata as _unicodedata
 
 
 def normalize_text_for_matching(text: str) -> str:

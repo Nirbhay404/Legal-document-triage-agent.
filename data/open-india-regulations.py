@@ -1,6 +1,7 @@
 
-from huggingface_hub import HfApi, hf_hub_download
 from pathlib import Path
+
+from huggingface_hub import HfApi, hf_hub_download
 
 REPO_ID = "vaquill/open-india-law"
 OUTPUT_DIR = Path("./open-india-law-regulations")

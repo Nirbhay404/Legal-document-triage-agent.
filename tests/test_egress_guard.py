@@ -18,7 +18,7 @@ import socket
 import unittest
 
 # Import the module under test.  Importing it also installs the guard.
-from legal_triage.local_runtime import _is_loopback, install_egress_guard
+from legal_triage.local_runtime import _is_loopback
 
 
 class TestIsLoopback(unittest.TestCase):
